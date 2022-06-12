@@ -4,7 +4,6 @@ Contenidos:
 1. Notebook de Jupyter con la explicación y realización del tutorial de Qiskit de IBM, con comentarios de cada linia y de los resultados y alternativas de implementación. Kernel Python 3.8.3
 2. Notebook de Jupyter con la realización del algoritmo descrito en la memoria de la variante de Ekera del algoritmo de Shor basado en la obra de Miller. Realizado con SageMath 9.2
 3. Este README con la explicación del algoritmo de Shor y un ejemplo para el caso $N=21$ y $a=2$
-Notebook 
 
 ### De la factorización a la determinación del período
 
