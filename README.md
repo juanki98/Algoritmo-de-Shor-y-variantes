@@ -28,9 +28,19 @@ $$ (x^{r/2})^2 - 1 \equiv 0 \bmod N $$
 y si $r$ es un número par:
 $$ (x^{r/2} + 1)(x^{r/2} - 1) \equiv 0 \bmod N $$
 
-A partir de esto, el producto $(x^{r/2} + 1)(x^{r/2} - 1)$ es un múltiplo entero de $N$, el número a factorizar. Por lo tanto, siempre que $(x^{r/2} + 1)$ o $(x^{r/2} - 1)$ no sea un múltiplo de $N$, entonces al menos uno de $(x^ {r/2} + 1)$ o $(x^{r/2} - 1)$ debe tener un factor no trivial en común con $N$.
+A partir de esto, el producto  $(x^{r/2} + 1)(x^{r/2} - 1)$  es un múltiplo entero de  $N$, el número a factorizar. 
+Por lo tanto, siempre que  $(x^{r/2} + 1)$ 
+o 
+$(x^{r/2} - 1)$ 
+no sea un múltiplo de $N$, entonces al menos uno de 
+$(x^ {r/2} + 1)$ o $(x^{r/2} - 1)$ 
+debe tener un factor no trivial en común con $N$.
 
-Por lo que al calcular $\text{gcd}(x^{r/2} - 1, N)$ y $\text{gcd}(x^{r/2} + 1, N)$ se obtendrá un factor de $N$, donde $\text{mcd}$ es la función del máximo común denominador, que se puede calcular en tiempo polinomial.
+Por lo que al calcular  $\text{gcd}(x^{r/2} - 1, N)$ 
+y $\text{gcd}(x^{r/2} + 1, N)$
+se obtendrá un factor de $N$, donde 
+$\text{mcd}$
+es la función del máximo común denominador, que se puede calcular en tiempo polinomial.
 
 #### Pasos clásicos del algoritmo de Shor
 
@@ -38,10 +48,24 @@ Para simplificar, supongamos que $N$ tiene solo dos factores primos distintos: $
 
 <div class="alert alert-block alert-info"> <a id='stepsone'></a>
 <ol>
-<li>Elijamos un entero aleatorio $x$ entre $1$ y $N$ y calculamos el máximo común divisor $\text{mcd}(x,N)$ usando el algoritmo de Euclides.</li>
-<li>Si $x$ y $N$ tienen algunos factores primos comunes, $\text{mcd}(x,N)$ será igual a $p$ o $q$. De lo contrario, $\text{gcd}(x,N) = 1$, lo que significa que $x$ y $N$ son coprimos. </li>
+<li>Elijamos un entero aleatorio $x$
+entre $1$ y $N$
+y calculamos el máximo común divisor 
+$\text{mcd}(x,N)$
+usando el algoritmo de Euclides.</li>
+<li>Si $x$
+y $N$ tienen algunos factores primos comunes, 
+$\text{mcd}(x,N)$
+será igual a $p$ o $q$. 
+De lo contrario, 
+$\text{gcd}(x,N) = 1$,
+lo que significa que $x$ y $N$ son coprimos. </li>
 <li>Sea $r$ el período de $x \bmod N$ calculado por el algoritmo de búsqueda de períodos. Ahora hay que repetir los pasos anteriores con diferentes opciones aleatorias de $x$ hasta que $r$ sea par.</li>
-<li>Ahora $p$ y $q$ se pueden encontrar calculando $\text{gcd}(x^{r/2} \pm 1, N)$ siempre que $x^{r/2} \neq \pm 1$.</li>
+<li>Ahora $p$ y $q$
+se pueden encontrar calculando 
+$\text{gcd}(x^{r/2} \pm 1, N)$
+siempre que 
+$x^{r/2} \neq \pm 1$.</li>
 </ol>
 </div>
 
@@ -57,17 +81,24 @@ Como ejemplo, consideremos $N = 15$. Veamos todos los valores de $1 < x < 15$ do
 |   13  | 1,13,4,7,1,13,4,7,1,13,4,... |      4     |             3            |             5             |
 |   14  | 1,14,1,14,1,14,1,14,1,14,1,,,|      2     |             1            |             15            |
 
-Como puede verse, cualquier valor de $x$ excepto $14$ devolverá los factores de $15$, es decir, $3$ y $5$. $14$ es un ejemplo del caso especial donde $(x^{r/2} + 1)$ o $(x^{r/2} - 1)$ es un múltiplo de $N$ y por lo tanto tenemos que probar con otro $x$.
+Como puede verse, cualquier valor de $x$ excepto $14$ devolverá los factores de $15$, es decir, $3$ y $5$. 
+El $14$ es un ejemplo del caso especial donde 
+$(x^{r/2} + 1)$ 
+o 
+$(x^{r/2} - 1)$ es un múltiplo de 
+$N$ y por lo tanto tenemos que probar con otro $x$.
 
 En general, se puede demostrar que este caso especial ocurre con poca frecuencia, por lo que, en promedio, solo dos llamadas a al algoritmo de determinación del período son suficientes para factorizar $N$.
 
 ### Búsqueda cuántica del período  <a id='quantumperiodfinding'></a>
 
-Primero describamos el algoritmo de búsqueda cuántica del período y luego veamos algunos de los pasos en detalle, antes de pasar a un ejemplo. Este algoritmo toma dos enteros coprimos, $x$ y $N$, y genera $r$, el período de $\mathcal{F}(a) = x^a\bmod N$.
+Primero describamos el algoritmo de búsqueda cuántica del período y luego veamos algunos de los pasos en detalle, antes de pasar a un ejemplo. Este algoritmo toma dos enteros coprimos, $x$ y $N$, y genera $r$, el período de 
+$\mathcal{F}(a) = x^a\bmod N$.
 
 <div class="alert alert-block alert-info"><a id='stepstwo'></a>
 <ol>
-<li> Elegir $T = 2^t$ tal que $N^2 \leq T \le 2N^2$. Inicializar dos registros de qubits, primero un registro de argumento con $t$ qubits y segundo un registro de función con $n = log_2 N$ qubits. Estos registros comienzan en el estado inicial:
+<li> Elegir $T = 2^t$ tal que $N^2 \leq T \le 2N^2$. 
+Inicializar dos registros de qubits, primero un registro de argumento con $t$ qubits y segundo un registro de función con $n = log_2 N$ qubits. Estos registros comienzan en el estado inicial:
 $$\vert\psi_0\rangle = \vert 0 \rangle \vert 0 \rangle$$ </li>
 <li> Aplicar una puerta de Hadamard en cada uno de los qubits en el registro de argumento para obtener una superposición de todos los números enteros de $0$ a $T$ con el mismo peso:
 $$\vert\psi_1\rangle = \frac{1}{\sqrt{T}}\sum_{a=0}^{T-1}\vert a \rangle \vert 0 \rangle$$ </li>
@@ -78,7 +109,8 @@ Este $\vert\psi_2\rangle$ está altamente entrelazado y muestra paralelismo cuá
 $$\vert\psi_3\rangle = \frac{1}{T}\sum_{a=0}^{T-1}\sum_{z=0}^{T-1}e^{(2\pi i)(az/T)}\vert z \rangle \vert x^a \bmod N \rangle$$
 donde debido a la interferencia, solo los términos $\vert z \rangle$ con
 $$z = qT/r $$
-tienen una amplitud significativa donde $q$ es un número entero aleatorio que va de $0$ a $r-1$ y $r$ es el período de $\mathcal{F}(a) = x^a\bmod N$. </li>
+tienen una amplitud significativa donde $q$ es un número entero aleatorio que va de $0$ a $r-1$ y $r$ es el período de 
+$\mathcal{F}(a) = x^a\bmod N$. </li>
 <li> Medir el registro de argumento para obtener el resultado clásico $z$. Con una probabilidad razonable, la aproximación de fracción continua de $T / z$ será un múltiplo entero del período $r$. El algoritmo de Euclides se puede usar para encontrar $r$.</li>
 </ol>
 </div>
@@ -99,13 +131,20 @@ Por tanto, la exponenciación modular consta de $t$ multiplicaciones en serie m�
 
 La transformada de Fourier ocurre en muchas versiones diferentes a lo largo de la computación clásica, en áreas que van desde el procesamiento de señales hasta la compresión de datos y la teoría de la complejidad. La transformada cuántica de Fourier (QFT), el paso 4 anterior, es la implementación cuántica de la transformada discreta de Fourier sobre las amplitudes de una función de onda.
 
-La transformada de Fourier discreta clásica actúa sobre un vector $(x_0, ..., x_{N-1})$ y lo asigna al vector $(y_0, ..., y_{N-1})$ de acuerdo con la fórmula
+La transformada de Fourier discreta clásica actúa sobre un vector $(x_0, ..., x_{N-1})$
+y lo asigna al vector 
+$(y_0, ..., y_{N-1})$ de acuerdo con la fórmula
 $$y_k = \frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}x_j\omega_N^{jk}$$
 donde $\omega_N^{jk} = e^{2\pi i \frac{jk}{N}}$.
 
-De manera similar, la transformada cuántica de Fourier actúa sobre un estado cuántico $\sum_{i=0}^{N-1} x_i \vert i \rangle$ y lo asigna al estado cuántico $\sum_{i=0}^{N -1} y_i \vert i \rangle$ según la fórmula
+De manera similar, la transformada cuántica de Fourier actúa sobre un estado cuántico 
+$ \sum_{i=0}^{N-1} x_i \vert i \rangle$
+y lo asigna al estado cuántico 
+$ \sum_{i=0}^{N-1} y_i \vert i \rangle$
+según la fórmula
 $$y_k = \frac{1}{\sqrt{N}}\sum_{j=0}^{N-1}x_j\omega_N^{jk}$$
-con $\omega_N^{jk}$ definido como arriba. Hay que tener en cuenta que solo las amplitudes del estado se vieron afectadas por esta transformación.
+con 
+$\omega_N^{jk}$ definido como arriba. Hay que tener en cuenta que solo las amplitudes del estado se vieron afectadas por esta transformación.
 
 Esto también se puede expresar como la aplicación:
 $$\vert x \rangle \mapsto \frac{1}{\sqrt{N}}\sum_{y=0}^{N-1}\omega_N^{xy} \vert y \rangle$$
@@ -115,26 +154,44 @@ $$ U_{QFT} = \frac{1}{\sqrt{N}} \sum_{x=0}^{N-1} \sum_{y=0}^{N-1} \omega_N^{xy }
 
 Como ejemplo, ya hemos visto la transformada cuántica de Fourier cuando $N = 2$, es el operador de Hadamard ($H$):
 $$H = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$$
-Supongamos que tenemos el estado de qubit único $\alpha \vert 0 \rangle + \beta \vert 1 \rangle$, si aplicamos el operador $H$ a este estado, obtenemos el nuevo estado:
+Supongamos que tenemos el estado de qubit único $\alpha \vert 0 \rangle + \beta \vert 1 \rangle$,
+si aplicamos el operador $H$ a este estado, obtenemos el nuevo estado:
 $$\frac{1}{\sqrt{2}}(\alpha + \beta) \vert 0 \rangle + \frac{1}{\sqrt{2}}(\alpha - \beta) \vert 1 \rangle \equiv \tilde{\alpha}\vert 0 \rangle + \tilde{\beta}\vert 1 \rangle$$
 Se observa cómo la puerta de Hadamard realiza la transformada discreta de Fourier para $N = 2$ en las amplitudes del estado.
 
-Entonces, ¿cómo será la transformada cuántica de Fourier para N más grandes? Construyamos un circuito para $N=2^n$, $QFT_N$ actuando en el estado $\vert x \rangle = \vert x_1...x_n \rangle$ donde $x_1$ es el bit más significativo.
+Entonces, ¿cómo será la transformada cuántica de Fourier para N más grandes? Construyamos un circuito para $N=2^n$, 
+$QFT_N$
+actuando en el estado 
+$\vert x \rangle = \vert x_1...x_n \rangle$
+donde $x_1$ es el bit más significativo.
 
-$$QFT_N\vert x \rangle = \frac{1}{\sqrt{N}} \sum_{y=0}^{N-1}\omega_N^{xy} \vert y \rangle = \frac{1}{\sqrt{N}} \sum_{y=0}^{N-1} e^{2 \pi i xy / 2^n} \vert y \rangle$$ ya que $\omega_N^{xy} = e^{2\pi i \frac{xy}{N}}$ y $N = 2^n$
-$$= \frac{1}{\sqrt{N}} \sum_{y=0}^{N-1} e^{2 \pi i \left(\sum_{k=1}^n y_k/2^k\right) x} \vert y_1 ... y_n \rangle$$ lo reescribimos en notación fraccional binaria $y = y_1...y_k, y/2^n = \sum_{k=1}^n y_k/2^k$
+$$QFT_N\vert x \rangle = \frac{1}{\sqrt{N}} \sum_{y=0}^{N-1}\omega_N^{xy} \vert y \rangle = \frac{1}{\sqrt{N}} \sum_{y=0}^{N-1} e^{2 \pi i xy / 2^n} \vert y \rangle$$ ya que $\omega_N^{xy} = e^{2\pi i \frac{xy}{N}}$
+y 
+$N = 2^n$
+$$= \frac{1}{\sqrt{N}} \sum_{y=0}^{N-1} e^{2 \pi i \left(\sum_{k=1}^n y_k/2^k\right) x} \vert y_1 ... y_n \rangle$$ 
+lo reescribimos en notación fraccional binaria
+$y = y_1...y_k$, 
+$y/2^n = \sum_{k=1}^n \frac{y_k}{2^k}$
 $$= \frac{1}{\sqrt{N}} \sum_{y=0}^{N-1} \prod_{k=0}^n e^{2 \pi i x y_k/2^k } \vert y_1 ... y_n \rangle$$ después de expandir la exponencial de una suma en un producto de exponenciales
-$$= \frac{1}{\sqrt{N}} \bigotimes_{k=1}^n  \left(\vert0\rangle + e^{2 \pi i x /2^k } \vert1\rangle \right)$$ después de reordenar la suma y los productos, y expandir} $$= \frac{1}{\sqrt{N}} \left(\vert0\rangle + e^{2 \pi i[0.x_n]} \vert1\rangle\right) \otimes...\otimes  \left(\vert0\rangle + e^{2 \pi i[0.x_1.x_2...x_{n-1}.x_n]} \vert1\rangle\right)$$ como $e^{2 \pi i x/2^k} = e^{2 \pi i[0.x_k...x_n]}$
+$$= \frac{1}{\sqrt{N}} \bigotimes_{k=1}^n  \left(\vert0\rangle + e^{2 \pi i x /2^k } \vert1\rangle \right)$$ después de reordenar la suma y los productos, y expandir $$= \frac{1}{\sqrt{N}} \left(\vert0\rangle + e^{2 \pi i[0.x_n]} \vert1\rangle\right) \otimes...\otimes  \left(\vert0\rangle + e^{2 \pi i[0.x_1.x_2...x_{n-1}.x_n]} \vert1\rangle\right)$$ como $e^{2 \pi i x/2^k} = e^{2 \pi i[0.x_k...x_n]}$
 
-Esta es una forma muy útil de QFT para $N=2^n$ ya que solo el último qubit depende del valor de todos los demás qubits de entrada y cada bit adicional depende cada vez menos de los qubits de entrada. Además, hay que tener en cuenta que $e^{2 \pi i.0.x_n}$ es $+1$ o $-1$, se asemeja a la transformación de Hadamard.
+Esta es una forma muy útil de QFT para $N=2^n$ ya que solo el último qubit depende del valor de todos los demás qubits de entrada y cada bit adicional depende cada vez menos de los qubits de entrada. Además, hay que tener en cuenta que $e^{2 \pi i.0.x_n}$
+es $+1$
+o 
+$-1$, se asemeja a la transformación de Hadamard.
 
 Antes de crear el código de circuito para el general $N=2^n$, veamos $N=8,n=3$:
 $$QFT_8\vert x_1x_2x_3\rangle = \frac{1}{\sqrt{8}} \left(\vert0\rangle + e^{2 \pi i[0.x_3]} \vert1\rangle\right) \otimes \left(\vert0\rangle + e^{2 \pi i[0.x_2.x_3]} \vert1\rangle\right) \otimes \left(\vert0\rangle + e^{2 \pi i[0 .x_1.x_2.x_3]} \vert1\rangle\right) $$
 
 Los pasos para crear el circuito para $\vert y_1y_2x_3\rangle = QFT_8\vert x_1x_2x_3\rangle$, recordamos que la puerta de rotación de fase controlada $CU_1$, sería:
-1. Aplicar una puerta Hadamard a $\vert x_3 \rangle$, dando el estado $\frac{1}{\sqrt{2}}\left(\vert0\rangle + e^{2 \pi i.0.x_3} \vert1\rangle\right) = \frac{1}{\sqrt{2}}\left(\vert0\rangle + (-1)^{x_3} \vert1\rangle\right)$
-2. Aplicar una puerta Hadamard a $\vert x_2 \rangle$, luego dependiendo de $k_3$ (antes de la puerta de Hadamard) un $CU_1(\frac{\pi}{2})$, dando el estado $\frac{1 }{\sqrt{2}}\left(\vert0\rangle + e^{2 \pi i[0.x_2.x_3]} \vert1\rangle\right)$.
-3. Apliar una puerta Hadamard a $\vert x_1 \rangle$, luego $CU_1(\frac{\pi}{2})$ dependiendo de $k_2$, y $CU_1(\frac{\pi}{4})$ dependiendo de $k_3$.
+1. Aplicar una puerta Hadamard a $\vert x_3 \rangle$,
+dando el estado 
+$\frac{1}{\sqrt{2}}\left(\vert0\rangle + e^{2 \pi i.0.x_3} \vert1\rangle\right) = \frac{1}{\sqrt{2}}\left(\vert0\rangle + (-1)^{x_3} \vert1\rangle\right)$
+2. Aplicar una puerta Hadamard a $\vert x_2 \rangle$,
+luego dependiendo de $k_3$ (antes de la puerta de Hadamard) un 
+$CU_1(\frac{\pi}{2})$,
+dando el estado $\frac{1 }{\sqrt{2}}\left(\vert0\rangle + e^{2 \pi i[0.x_2.x_3]} \vert1\rangle\right)$.
+3. Aplicar una puerta Hadamard a $\vert x_1 \rangle$, luego $CU_1(\frac{\pi}{2})$ dependiendo de $k_2$, y $CU_1(\frac{\pi}{4})$ dependiendo de $k_3$.
 4. Medir los bits en orden inverso, es decir, $y_3 = x_1, y_2 = x_2, y_1 = y_3$.
 
 #### Ejemplo
@@ -166,4 +223,7 @@ $$\vert\psi_4\rangle = QFT(\vert\psi_3\rangle) = QFT(\frac{1}{\sqrt{86}}\sum_{a=
 
 6. Medimos el registro de argumento. La probabilidad de medir un resultado $j$ es:
 $$ \rm{Probabilidad}(j) = \frac{1}{512 \times 86} \bigg\vert \sum_{a=0}^{85}e^{-2 \pi i \frac{6ja} {512}} \bigg\vert^2$$
-Esto alcanza un máximo en $j=0,85,171,256,341,427$. Supongamos que el resultado de la medición nos dió $j = 85$, ahora usando la aproximación de fracción continua de $\frac{512}{85}$, obtenemos $r=6$, como se esperaba.
+Esto alcanza un máximo en $j=0,85,171,256,341,427$. 
+Supongamos que el resultado de la medición nos dió $j = 85$, ahora usando la aproximación de fracción continua de 
+$\frac{512}{85}$,
+obtenemos $r=6$, como se esperaba.
